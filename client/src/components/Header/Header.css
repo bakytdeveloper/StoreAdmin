@@ -1,0 +1,92 @@
+/* client/src/components/Header/Header.css */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    padding: 0 70px;
+    background-color: #f2f2f2;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.site-name {
+    font-weight: bold;
+    font-size: 35px;
+}
+
+.icons-and-number {
+    display: flex;
+    align-items: center;
+}
+
+.social-icons {
+    display: flex;
+}
+
+.social-icons a {
+    color: #3b5998; /* Цвет Facebook */
+    text-decoration: none;
+    margin-right: 100px;
+    cursor: pointer;
+    font-size: 25px;
+}
+
+.social-icons a:hover {
+    color: #007bff; /* Цвет при наведении (синий) */
+}
+
+.phone-number {
+    margin-left: auto; /* Поместить номер телефона в конец родительского контейнера */
+    margin-right: 20px;
+    cursor: pointer;
+    font-size: 26px;
+}
+
+.phone-number:hover {
+    color: #007bff;
+}
+
+.search-section input {
+    padding: 5px;
+    width: 200px;
+}
+
+@media only screen and (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+    }
+    .site-name {
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .icons-and-number {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .social-icons {
+        margin-top: 5px;
+        margin-bottom: 10px;
+        margin-left: 15px;
+    }
+.tel {
+    margin-left: 15px;
+}
+
+    .search-section {
+        margin-top: 10px;
+    }
+
+
+    .social-icons a {
+        color: #3b5998; /* Цвет Facebook */
+        text-decoration: none;
+        margin-right: 30px;
+        cursor: pointer;
+    }
+
+}
