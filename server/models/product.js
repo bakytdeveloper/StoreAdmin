@@ -1,4 +1,3 @@
-// server/models/product.js
 
 const mongoose = require('mongoose');
 
