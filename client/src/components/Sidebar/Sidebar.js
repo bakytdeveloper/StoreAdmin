@@ -37,13 +37,15 @@ const Sidebar = ({ setFilteredProducts, products }) => {
         <div className="sidebar">
             <h3>Типы товаров</h3>
             <ul>
-                <li className={!selectedType && 'selected'} onClick={handleShowAllClick}>
+                <li className={!selectedType ? 'selected' : undefined} onClick={handleShowAllClick}>
+                {/*<li className={!selectedType && 'selected'} onClick={handleShowAllClick}>*/}
                     Все товары
                 </li>
                 {types.map((type, index) => (
                     <li
                         key={index}
-                        className={selectedType === type && 'selected'}
+                        // className={selectedType === type && 'selected'}
+                        className={selectedType === type ? 'selected' : undefined}
                         onClick={() => handleTypeClick(type)}
                     >
                         {type}
