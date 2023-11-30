@@ -1,11 +1,33 @@
 /* client/src/components/Sidebar/Sidebar.css */
 
+/*.sidebar {*/
+/*    width: 200px;*/
+/*    padding: 20px;*/
+/*    background-color: #f8f9fa;*/
+/*    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+
+
 .sidebar {
+    position: fixed;
+    top: 80px; /* Выравниваем боковую панель под шапкой */
+    left: 0;
     width: 200px;
     padding: 20px;
     background-color: #f8f9fa;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    z-index: 999; /* Задаем занимаемый уровень z-index ниже шапки */
+    transition: transform 0.3s ease;
+
 }
+
+.sidebar.hidden {
+    transform: translateX(-200px); /* Скрываем боковую панель по горизонтали за пределы экрана */
+}
+
+
+
 
 h3 {
     margin-bottom: 10px;

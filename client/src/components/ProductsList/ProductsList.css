@@ -13,7 +13,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin: -150px -4px; /* Учтем отступы между карточками */
+    margin: 100px -4px; /* Учтем отступы между карточками */
     padding-left: 310px;
 }
 

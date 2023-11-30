@@ -50,3 +50,12 @@
 /*}*/
 
 /* Другие стили здесь */
+
+
+
+/* Добавьте следующий CSS в ваш файл стилей App.css */
+
+.content-modal-open .header,
+.content-modal-open .sidebar {
+  display: none;
+}

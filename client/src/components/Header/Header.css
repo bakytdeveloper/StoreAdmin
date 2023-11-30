@@ -1,14 +1,42 @@
 /* client/src/components/Header/Header.css */
 
+/*.header {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    align-items: center;*/
+/*    height: 50px;*/
+/*    padding: 0 70px;*/
+/*    background-color: #f2f2f2;*/
+/*    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+
+
 .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 50px;
     padding: 0 70px;
     background-color: #f2f2f2;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    z-index: 1000; /* Устанавливаем высокий z-index для уверенности в отображении над контентом */
+    transition: transform 0.3s ease; /* Добавляем анимацию для плавного скрытия/показа */
+
 }
+
+
+
+.header.hidden {
+    transform: translateY(-50px); /* Скрываем шапку по вертикали за пределы экрана */
+}
+
+
+
 
 .site-name {
     font-weight: bold;
