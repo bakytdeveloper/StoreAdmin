@@ -1,6 +1,4 @@
-//
-// // client/src/App.js
-//
+// // App.js
 // import React, { useState, useEffect } from 'react';
 // import Header from './components/Header/Header';
 // import './App.css';
@@ -30,7 +28,7 @@
 //         <div className="App">
 //             <Header />
 //             <div className="content">
-//                 <Sidebar setFilteredProducts={setFilteredProducts} />
+//                 <Sidebar setFilteredProducts={setFilteredProducts} products={products} />
 //                 <ProductsList products={filteredProducts} />
 //             </div>
 //         </div>
@@ -41,6 +39,9 @@
 
 
 
+
+
+// App.js
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header/Header';
 import './App.css';
@@ -68,7 +69,7 @@ function App() {
 
     return (
         <div className="App">
-            <Header />
+            <Header setFilteredProducts={setFilteredProducts} allProducts={products} />
             <div className="content">
                 <Sidebar setFilteredProducts={setFilteredProducts} products={products} />
                 <ProductsList products={filteredProducts} />
