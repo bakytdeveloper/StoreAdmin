@@ -92,20 +92,6 @@ app.delete('/api/products/:id', async (req, res) => {
     }
 });
 
-// Получить уникальные типы товаров
-
-// app.get('/api/products/types', async (req, res) => {
-//     try {
-//         console.log('ПОЛУЧЕНИЕ УНИКАЛЬНЫХ ТИПОВ ВНУТРИ КОДА: ЗАПРОС ПОЛУЧЕН');
-//         const types = await Product.distinct('type');
-//         console.log('ПОЛУЧЕНИЕ УНИКАЛЬНЫХ ТИПОВ ВНУТРИ КОДА :', types);
-//         res.json(types);
-//     } catch (error) {
-//         console.error('Ошибка при получении типов продуктов:', error);
-//         res.status(500).json({ error: error.message });
-//     }
-// });
-
 
 app.get('/api/types', async (req, res) => {
     try {
@@ -118,6 +104,23 @@ app.get('/api/types', async (req, res) => {
     }
 });
 
+
+
+app.get('/products', async (req, res) => {
+    try {
+        const { type } = req.query;
+
+        if (type) {
+            const filteredProducts = await Product.find({ type });
+            res.json(filteredProducts);
+        } else {
+            const products = await Product.find();
+            res.json(products);
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
 
 
 
