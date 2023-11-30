@@ -13,13 +13,41 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin: 100px -4px; /* Учтем отступы между карточками */
-    padding-left: 310px;
+    margin: 200px -4px 20px; /* Учтем отступы между карточками */
+    /*padding-left: 110px;*/
 }
 
 
 @media (max-width: 768px) {
     .products-list {
         grid-template-columns: 1fr;
+    }
+}
+
+
+
+
+
+/* Дополнительные стили для медиа-запросов */
+@media screen and (max-width: 768px) {
+    .products-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .product-card {
+        width: 80%; /* Ширина карточки, можете настроить по вашему вкусу */
+        margin-bottom: 20px; /* Пространство между карточками */
+    }
+}
+
+@media screen and (min-width: 769px) {
+    .products-list {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        max-width: 1200px; /* Максимальная ширина колонки с карточками */
+        margin: 0 auto; /* Центрирование колонки с карточками */
     }
 }

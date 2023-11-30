@@ -1,16 +1,5 @@
 /* client/src/components/Header/Header.css */
 
-/*.header {*/
-/*    display: flex;*/
-/*    justify-content: space-between;*/
-/*    align-items: center;*/
-/*    height: 50px;*/
-/*    padding: 0 70px;*/
-/*    background-color: #f2f2f2;*/
-/*    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
-/*}*/
-
-
 
 .header {
     position: fixed;

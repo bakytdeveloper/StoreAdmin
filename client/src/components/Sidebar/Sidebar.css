@@ -1,12 +1,5 @@
 /* client/src/components/Sidebar/Sidebar.css */
 
-/*.sidebar {*/
-/*    width: 200px;*/
-/*    padding: 20px;*/
-/*    background-color: #f8f9fa;*/
-/*    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
-/*}*/
-
 
 
 .sidebar {
@@ -47,4 +40,11 @@ li {
 
 li:hover {
     text-decoration: underline;
+}
+
+
+@media screen and (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
 }

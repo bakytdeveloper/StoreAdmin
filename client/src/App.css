@@ -36,22 +36,6 @@
     transform: rotate(360deg);
   }
 }
-/* client/src/App.css */
-
-/*!* Добавьте стили для основного контейнера .App и .content *!*/
-/*.App {*/
-/*  font-family: 'Arial', sans-serif;*/
-/*}*/
-
-/*.content {*/
-/*  display: flex;*/
-/*  justify-content: space-between;*/
-/*  margin-top: 10px;*/
-/*}*/
-
-/* Другие стили здесь */
-
-
 
 /* Добавьте следующий CSS в ваш файл стилей App.css */
 
@@ -59,3 +43,8 @@
 .content-modal-open .sidebar {
   display: none;
 }
+
+.content-modal-open .header {
+  display: none;
+}
+
