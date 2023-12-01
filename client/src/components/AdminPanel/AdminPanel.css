@@ -1,29 +1,73 @@
-/* src/components/AdminPanel/AdminPanel.css */
+/*!* src/components/AdminPanel/AdminPanel.css *!*/
+/*.admin-panel {*/
+/*    max-width: 600px;*/
+/*    margin: 0 auto;*/
+/*}*/
+
+/*form {*/
+/*    margin-bottom: 20px;*/
+/*}*/
+
+/*label {*/
+/*    display: block;*/
+/*    margin-top: 10px;*/
+/*}*/
+
+/*input,*/
+/*textarea {*/
+/*    width: 100%;*/
+/*    padding: 8px;*/
+/*    margin-top: 5px;*/
+/*}*/
+
+/*button {*/
+/*    background-color: #007bff;*/
+/*    color: #fff;*/
+/*    padding: 10px;*/
+/*    border: none;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*button:hover {*/
+/*    background-color: #0056b3;*/
+/*}*/
+
+/*ul {*/
+/*    list-style: none;*/
+/*    padding: 0;*/
+/*}*/
+
+/*li {*/
+/*    margin-bottom: 10px;*/
+/*}*/
+
+
+
+
+/* components/AdminPanel/AdminPanel.css */
 .admin-panel {
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
 }
 
-form {
-    margin-bottom: 20px;
+.add-product, .product-list {
+    margin-top: 20px;
 }
 
-label {
-    display: block;
-    margin-top: 10px;
+h2, h3 {
+    color: #333;
 }
 
-input,
-textarea {
-    width: 100%;
+input {
+    margin: 5px 0;
     padding: 8px;
-    margin-top: 5px;
+    width: 100%;
 }
 
 button {
+    padding: 10px;
     background-color: #007bff;
     color: #fff;
-    padding: 10px;
     border: none;
     cursor: pointer;
 }
@@ -38,5 +82,51 @@ ul {
 }
 
 li {
-    margin-bottom: 10px;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+.specification-inputs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/*.specification-inputs input {*/
+/*    width: 45%; !* Равномерное распределение ширины для полей Key и Value *!*/
+/*}*/
+
+
+
+.specification-inputs input:first-child {
+    width: 30%; /* Ширина первого поля Key */
+}
+
+.specification-inputs input:last-child {
+    width: 45%; /* Ширина второго поля Value */
+}
+
+
+
+
+
+.specification-inputs button {
+    margin-left: 10px;
+    width: 20%; /* Ширина кнопки "Удалить поле" */
+}
+
+
+
+
+/* Optional: Add media query for smaller screens */
+@media only screen and (max-width: 600px) {
+    .admin-panel {
+        max-width: 100%;
+    }
 }
