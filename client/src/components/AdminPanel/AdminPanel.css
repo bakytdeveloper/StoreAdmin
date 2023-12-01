@@ -44,7 +44,7 @@
 
 
 
-/* components/AdminPanel/AdminPanel.css */
+/*!* components/AdminPanel/AdminPanel.css *!*/
 .admin-panel {
     max-width: 800px;
     margin: 0 auto;
@@ -121,12 +121,97 @@ li {
     width: 20%; /* Ширина кнопки "Удалить поле" */
 }
 
-
+.image-preview img {
+    width: 200px;
+    height: auto;
+}
 
 
 /* Optional: Add media query for smaller screens */
 @media only screen and (max-width: 600px) {
     .admin-panel {
         max-width: 100%;
+        margin-top: 200px;
     }
+
 }
+
+
+/*// components/AdminPanel/AdminPanel.css*!*!*/
+/*.admin-panel {*/
+/*    max-width: 800px;*/
+/*    margin: 0 auto;*/
+/*}*/
+
+/*.add-product, .product-list {*/
+/*    margin-top: 20px;*/
+/*}*/
+
+/*h2, h3 {*/
+/*    color: #333;*/
+/*}*/
+
+/*input {*/
+/*    margin: 5px 0;*/
+/*    padding: 8px;*/
+/*    width: 100%;*/
+/*}*/
+
+/*button {*/
+/*    padding: 10px;*/
+/*    background-color: #007bff;*/
+/*    color: #fff;*/
+/*    border: none;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*button:hover {*/
+/*    background-color: #0056b3;*/
+/*}*/
+
+/*ul {*/
+/*    list-style: none;*/
+/*    padding: 0;*/
+/*}*/
+
+/*li {*/
+/*    margin: 10px 0;*/
+/*    padding: 10px;*/
+/*    border: 1px solid #ddd;*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    align-items: center;*/
+/*}*/
+
+/*!* Additional styles for image preview *!*/
+/*.image-upload {*/
+/*    position: relative;*/
+/*    overflow: hidden;*/
+/*    display: inline-block;*/
+/*}*/
+
+/*.image-preview {*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    right: 0;*/
+/*    bottom: 0;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    background-color: rgba(255, 255, 255, 0.8);*/
+/*}*/
+
+/*.image-preview img {*/
+/*    max-width: 100%;*/
+/*    max-height: 100%;*/
+/*    margin-right: 5px;*/
+/*}*/
+
+/*.image-preview button {*/
+/*    background-color: #ff0000;*/
+/*    color: #fff;*/
+/*    border: none;*/
+/*    padding: 5px 8px;*/
+/*    cursor: pointer;*/
+/*}*/
