@@ -48,6 +48,7 @@
 .admin-panel {
     max-width: 800px;
     margin: 0 auto;
+    margin-top: 90px;
 }
 
 .add-product, .product-list {

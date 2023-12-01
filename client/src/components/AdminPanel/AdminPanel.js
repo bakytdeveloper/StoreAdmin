@@ -1086,6 +1086,579 @@
 
 
 
+//
+// // components/AdminPanel/AdminPanel.js
+// import React, { useState, useEffect } from 'react';
+// import axios from 'axios';
+// import './AdminPanel.css';
+//
+// const AdminPanel = () => {
+//     const [productName, setProductName] = useState('');
+//     const [productDescription, setProductDescription] = useState('');
+//     const [productType, setProductType] = useState('');
+//     const [productPrice, setProductPrice] = useState('');
+//     const [productSpecifications, setProductSpecifications] = useState([
+//         {
+//             key: '',
+//             value: ''
+//         }
+//     ]);
+//     const [productImage, setProductImage] = useState(null);
+//     const [previewImage, setPreviewImage] = useState(null);
+//
+//     const [products, setProducts] = useState([]);
+//
+//     useEffect(() => {
+//         const fetchProducts = async () => {
+//             try {
+//                 const response = await axios.get('http://localhost:3001/api/products');
+//                 setProducts(response.data);
+//             } catch (error) {
+//                 console.error('Error fetching products:', error);
+//             }
+//         };
+//
+//         fetchProducts();
+//     }, []);
+//
+//     const handleAddProduct = async () => {
+//         const formData = new FormData();
+//         formData.append('name', productName);
+//         formData.append('description', productDescription);
+//         formData.append('type', productType);
+//         formData.append('price', productPrice);
+//         formData.append('specifications', JSON.stringify(productSpecifications));
+//
+//         if (productImage) {
+//             formData.append('image', productImage);
+//         }
+//
+//         try {
+//             const response = await axios.post('http://localhost:3001/api/products', formData, {
+//                 headers: {
+//                     'Content-Type': 'multipart/form-data',
+//                 },
+//             });
+//
+//             setProducts([...products, response.data]);
+//
+//             // Очищаем поля после добавления товара
+//             setProductName('');
+//             setProductDescription('');
+//             setProductType('');
+//             setProductPrice('');
+//             setProductSpecifications([{ key: '', value: '' }]);
+//             setProductImage(null);
+//             setPreviewImage(null);
+//         } catch (error) {
+//             console.error('Error adding product:', error);
+//         }
+//     };
+//
+//     const handleInputChange = (index, key, value) => {
+//         const updatedSpecifications = [...productSpecifications];
+//         updatedSpecifications[index] = { ...updatedSpecifications[index], [key]: value };
+//         setProductSpecifications(updatedSpecifications);
+//     };
+//
+//     const handleAddField = () => {
+//         setProductSpecifications([...productSpecifications, { key: '', value: '' }]);
+//     };
+//
+//     const handleDeleteField = (index) => {
+//         const updatedSpecifications = [...productSpecifications];
+//         updatedSpecifications.splice(index, 1);
+//         setProductSpecifications(updatedSpecifications);
+//     };
+//
+//     const handleEditProduct = (productId) => {
+//         // Обработка редактирования товара
+//         console.log('Edit product:', productId);
+//     };
+//
+//     const handleDeleteProduct = async (productId) => {
+//         try {
+//             await axios.delete(`http://localhost:3001/api/products/${productId}`);
+//             setProducts(products.filter((product) => product._id !== productId));
+//         } catch (error) {
+//             console.error('Error deleting product:', error);
+//         }
+//     };
+//
+//     const handleImageChange = (e) => {
+//         const file = e.target.files[0];
+//
+//         if (file) {
+//             const imageUrl = URL.createObjectURL(file);
+//             setPreviewImage(imageUrl);
+//         } else {
+//             setPreviewImage(null);
+//         }
+//
+//         setProductImage(file);
+//     };
+//
+//     const handleRemoveImage = () => {
+//         setProductImage(null);
+//         setPreviewImage(null);
+//     };
+//
+//     return (
+//         <div className="admin-panel">
+//             <h2>Админ панель</h2>
+//             <div className="add-product">
+//                 <h3>Add Product</h3>
+//                 <input type="text" placeholder="Name" value={productName} onChange={(e) => setProductName(e.target.value)} />
+//                 <input type="text" placeholder="Description" value={productDescription} onChange={(e) => setProductDescription(e.target.value)} />
+//                 <input type="text" placeholder="Type" value={productType} onChange={(e) => setProductType(e.target.value)} />
+//                 <input type="text" placeholder="Price" value={productPrice} onChange={(e) => setProductPrice(e.target.value)} />
+//
+//                 <h4>Specifications</h4>
+//                 {productSpecifications.map((specification, index) => (
+//                     <div key={index} className="specification-inputs">
+//                         <input
+//                             type="text"
+//                             placeholder="Key"
+//                             value={specification.key}
+//                             onChange={(e) => handleInputChange(index, 'key', e.target.value)}
+//                         />
+//                         <input
+//                             type="text"
+//                             placeholder="Value"
+//                             value={specification.value}
+//                             onChange={(e) => handleInputChange(index, 'value', e.target.value)}
+//                         />
+//                         <button onClick={() => handleDeleteField(index)}>Удалить поле</button>
+//                     </div>
+//                 ))}
+//                 <button onClick={handleAddField}>Добавить поле</button>
+//
+//                 <h4>Image</h4>
+//                 <div className="image-upload">
+//                     <input type="file" onChange={handleImageChange} />
+//                     {previewImage && (
+//                         <div className="image-preview">
+//                             <img src={previewImage} alt="Preview" />
+//                             <button onClick={handleRemoveImage}>&times;</button>
+//                         </div>
+//                     )}
+//                     {!previewImage && <p>Файл не выбран</p>}
+//                 </div>
+//
+//                 <button onClick={handleAddProduct}>Add Product</button>
+//             </div>
+//
+//             <div className="product-list">
+//                 <h3>Product List</h3>
+//                 <ul>
+//                     {products.map((product) => (
+//                         <li key={product._id}>
+//                             {product.name} - {product.price}
+//                             <button onClick={() => handleEditProduct(product._id)}>Редактировать</button>
+//                             <button onClick={() => handleDeleteProduct(product._id)}>Удалить</button>
+//                         </li>
+//                     ))}
+//                 </ul>
+//             </div>
+//         </div>
+//     );
+// };
+//
+// export default AdminPanel;
+
+
+//
+//
+// // components/AdminPanel/AdminPanel.js
+// import React, { useState, useEffect } from 'react';
+// import axios from 'axios';
+// import './AdminPanel.css';
+//
+// const AdminPanel = () => {
+//     const [productName, setProductName] = useState('');
+//     const [productDescription, setProductDescription] = useState('');
+//     const [productType, setProductType] = useState('');
+//     const [productPrice, setProductPrice] = useState('');
+//     const [productSpecifications, setProductSpecifications] = useState([{ key: '', value: '' }]);
+//     const [productImage, setProductImage] = useState(null);
+//     const [previewImage, setPreviewImage] = useState(null);
+//     const [editingProduct, setEditingProduct] = useState(null);
+//
+//     const [products, setProducts] = useState([]);
+//
+//     useEffect(() => {
+//         const fetchProducts = async () => {
+//             try {
+//                 const response = await axios.get('http://localhost:3001/api/products');
+//                 setProducts(response.data);
+//             } catch (error) {
+//                 console.error('Error fetching products:', error);
+//             }
+//         };
+//
+//         fetchProducts();
+//     }, []);
+//
+//     const handleAddProduct = async () => {
+//         const formData = new FormData();
+//         formData.append('name', productName);
+//         formData.append('description', productDescription);
+//         formData.append('type', productType);
+//         formData.append('price', productPrice);
+//         formData.append('specifications', JSON.stringify(productSpecifications));
+//
+//         if (productImage) {
+//             formData.append('image', productImage);
+//         }
+//
+//         try {
+//             if (editingProduct) {
+//                 await axios.put(`http://localhost:3001/api/products/${editingProduct._id}`, formData, {
+//                     headers: {
+//                         'Content-Type': 'multipart/form-data',
+//                     },
+//                 });
+//             } else {
+//                 const response = await axios.post('http://localhost:3001/api/products', formData, {
+//                     headers: {
+//                         'Content-Type': 'multipart/form-data',
+//                     },
+//                 });
+//
+//                 setProducts([...products, response.data]);
+//             }
+//
+//             setProductName('');
+//             setProductDescription('');
+//             setProductType('');
+//             setProductPrice('');
+//             setProductSpecifications([{ key: '', value: '' }]);
+//             setProductImage(null);
+//             setPreviewImage(null);
+//             setEditingProduct(null);
+//         } catch (error) {
+//             console.error('Error adding/updating product:', error);
+//         }
+//     };
+//
+//     const handleInputChange = (index, key, value) => {
+//         const updatedSpecifications = [...productSpecifications];
+//         updatedSpecifications[index] = { ...updatedSpecifications[index], [key]: value };
+//         setProductSpecifications(updatedSpecifications);
+//     };
+//
+//     const handleAddField = () => {
+//         setProductSpecifications([...productSpecifications, { key: '', value: '' }]);
+//     };
+//
+//     const handleDeleteField = (index) => {
+//         const updatedSpecifications = [...productSpecifications];
+//         updatedSpecifications.splice(index, 1);
+//         setProductSpecifications(updatedSpecifications);
+//     };
+//
+//     const handleEditProduct = (productId) => {
+//         const productToEdit = products.find((product) => product._id === productId);
+//         if (productToEdit) {
+//             setEditingProduct(productToEdit);
+//             setProductName(productToEdit.name || '');
+//             setProductDescription(productToEdit.description || '');
+//             setProductType(productToEdit.type || '');
+//             setProductPrice(productToEdit.price || '');
+//             setProductSpecifications(productToEdit.specifications || [{ key: '', value: '' }]);
+//             setProductImage(null);
+//             setPreviewImage(productToEdit.image || null);
+//         }
+//     };
+//
+//     const handleDeleteProduct = async (productId) => {
+//         try {
+//             await axios.delete(`http://localhost:3001/api/products/${productId}`);
+//             setProducts(products.filter((product) => product._id !== productId));
+//         } catch (error) {
+//             console.error('Error deleting product:', error);
+//         }
+//     };
+//
+//     const handleImageChange = (e) => {
+//         const file = e.target.files[0];
+//
+//         if (file) {
+//             const imageUrl = URL.createObjectURL(file);
+//             setPreviewImage(imageUrl);
+//         } else {
+//             setPreviewImage(null);
+//         }
+//
+//         setProductImage(file);
+//     };
+//
+//     const handleRemoveImage = () => {
+//         setProductImage(null);
+//         setPreviewImage(null);
+//     };
+//
+//     return (
+//         <div className="admin-panel">
+//             <h2>Админ панель</h2>
+//             <div className="add-product">
+//                 <h3>Add/Edit Product</h3>
+//                 <input type="text" placeholder="Name" value={productName} onChange={(e) => setProductName(e.target.value)} />
+//                 <input type="text" placeholder="Description" value={productDescription} onChange={(e) => setProductDescription(e.target.value)} />
+//                 <input type="text" placeholder="Type" value={productType} onChange={(e) => setProductType(e.target.value)} />
+//                 <input type="text" placeholder="Price" value={productPrice} onChange={(e) => setProductPrice(e.target.value)} />
+//
+//                 <h4>Specifications</h4>
+//                 {Array.isArray(productSpecifications) &&
+//                 productSpecifications.map((specification, index) => (
+//                     <div key={index} className="specification-inputs">
+//                         <input
+//                             type="text"
+//                             placeholder="Key"
+//                             value={specification.key}
+//                             onChange={(e) => handleInputChange(index, 'key', e.target.value)}
+//                         />
+//                         <input
+//                             type="text"
+//                             placeholder="Value"
+//                             value={specification.value}
+//                             onChange={(e) => handleInputChange(index, 'value', e.target.value)}
+//                         />
+//                         <button onClick={() => handleDeleteField(index)}>Удалить поле</button>
+//                     </div>
+//                 ))}
+//                 <button onClick={handleAddField}>Добавить поле</button>
+//
+//                 <h4>Image</h4>
+//                 <div className="image-upload">
+//                     <input type="file" onChange={handleImageChange} />
+//                     {previewImage && (
+//                         <div className="image-preview">
+//                             <img src={previewImage} alt="Preview" />
+//                             <button onClick={handleRemoveImage}>&times;</button>
+//                         </div>
+//                     )}
+//                     {!previewImage && <p>Файл не выбран</p>}
+//                 </div>
+//
+//                 <button onClick={handleAddProduct}>Add/Edit Product</button>
+//             </div>
+//
+//             <div className="product-list">
+//                 <h3>Product List</h3>
+//                 <ul>
+//                     {products.map((product) => (
+//                         <li key={product._id}>
+//                             {product.name} - {product.price}
+//                             <button onClick={() => handleEditProduct(product._id)}>Редактировать</button>
+//                             <button onClick={() => handleDeleteProduct(product._id)}>Удалить</button>
+//                         </li>
+//                     ))}
+//                 </ul>
+//             </div>
+//         </div>
+//     );
+// };
+//
+// export default AdminPanel;
+
+//
+// // components/AdminPanel/AdminPanel.js
+// import React, { useState, useEffect } from 'react';
+// import axios from 'axios';
+// import './AdminPanel.css';
+//
+// const AdminPanel = () => {
+//     const [productName, setProductName] = useState('');
+//     const [productDescription, setProductDescription] = useState('');
+//     const [productType, setProductType] = useState('');
+//     const [productPrice, setProductPrice] = useState('');
+//     const [productSpecifications, setProductSpecifications] = useState([{ key: '', value: '' }]);
+//     const [productImage, setProductImage] = useState(null);
+//     const [previewImage, setPreviewImage] = useState(null);
+//     const [editingProduct, setEditingProduct] = useState(null);
+//
+//     const [products, setProducts] = useState([]);
+//
+//     useEffect(() => {
+//         const fetchProducts = async () => {
+//             try {
+//                 const response = await axios.get('http://localhost:3001/api/products');
+//                 setProducts(response.data);
+//             } catch (error) {
+//                 console.error('Error fetching products:', error);
+//             }
+//         };
+//
+//         fetchProducts();
+//     }, []);
+//
+//     const handleAddProduct = async () => {
+//         const formData = new FormData();
+//         formData.append('name', productName);
+//         formData.append('description', productDescription);
+//         formData.append('type', productType);
+//         formData.append('price', productPrice);
+//         formData.append('specifications', JSON.stringify(productSpecifications));
+//
+//         if (productImage) {
+//             formData.append('image', productImage);
+//         }
+//
+//         try {
+//             if (editingProduct) {
+//                 await axios.put(`http://localhost:3001/api/products/${editingProduct._id}`, formData, {
+//                     headers: {
+//                         'Content-Type': 'multipart/form-data',
+//                     },
+//                 });
+//             } else {
+//                 const response = await axios.post('http://localhost:3001/api/products', formData, {
+//                     headers: {
+//                         'Content-Type': 'multipart/form-data',
+//                     },
+//                 });
+//
+//                 setProducts([...products, response.data]);
+//             }
+//
+//             setProductName('');
+//             setProductDescription('');
+//             setProductType('');
+//             setProductPrice('');
+//             setProductSpecifications([{ key: '', value: '' }]);
+//             setProductImage(null);
+//             setPreviewImage(null);
+//             setEditingProduct(null);
+//         } catch (error) {
+//             console.error('Error adding/updating product:', error);
+//         }
+//     };
+//
+//     const handleInputChange = (index, key, value) => {
+//         const updatedSpecifications = [...productSpecifications];
+//         updatedSpecifications[index] = { ...updatedSpecifications[index], [key]: value };
+//         setProductSpecifications(updatedSpecifications);
+//     };
+//
+//     const handleAddField = () => {
+//         setProductSpecifications({ ...productSpecifications, [new Date().getTime()]: { key: '', value: '' } });
+//     };
+//
+//     const handleDeleteField = (key) => {
+//         const updatedSpecifications = { ...productSpecifications };
+//         delete updatedSpecifications[key];
+//         setProductSpecifications(updatedSpecifications);
+//     };
+//
+//     const handleEditProduct = (productId) => {
+//         const productToEdit = products.find((product) => product._id === productId);
+//         if (productToEdit) {
+//             setEditingProduct(productToEdit);
+//             setProductName(productToEdit.name || '');
+//             setProductDescription(productToEdit.description || '');
+//             setProductType(productToEdit.type || '');
+//             setProductPrice(productToEdit.price || '');
+//             setProductSpecifications(productToEdit.specifications || {});
+//             setProductImage(null);
+//             setPreviewImage(productToEdit.image || null);
+//         }
+//     };
+//
+//     const handleDeleteProduct = async (productId) => {
+//         try {
+//             await axios.delete(`http://localhost:3001/api/products/${productId}`);
+//             setProducts(products.filter((product) => product._id !== productId));
+//         } catch (error) {
+//             console.error('Error deleting product:', error);
+//         }
+//     };
+//
+//     const handleImageChange = (e) => {
+//         const file = e.target.files[0];
+//
+//         if (file) {
+//             const imageUrl = URL.createObjectURL(file);
+//             setPreviewImage(imageUrl);
+//         } else {
+//             setPreviewImage(null);
+//         }
+//
+//         setProductImage(file);
+//     };
+//
+//     const handleRemoveImage = () => {
+//         setProductImage(null);
+//         setPreviewImage(null);
+//     };
+//
+//     return (
+//         <div className="admin-panel">
+//             <h2>Админ панель</h2>
+//             <div className="add-product">
+//                 <h3>Add/Edit Product</h3>
+//                 <input type="text" placeholder="Name" value={productName} onChange={(e) => setProductName(e.target.value)} />
+//                 <input type="text" placeholder="Description" value={productDescription} onChange={(e) => setProductDescription(e.target.value)} />
+//                 <input type="text" placeholder="Type" value={productType} onChange={(e) => setProductType(e.target.value)} />
+//                 <input type="text" placeholder="Price" value={productPrice} onChange={(e) => setProductPrice(e.target.value)} />
+//
+//                 <h4>Specifications</h4>
+//                 {Object.keys(productSpecifications).map((key) => (
+//                     <div key={key} className="specification-inputs">
+//                         <input
+//                             type="text"
+//                             placeholder="Key"
+//                             value={productSpecifications[key].key}
+//                             onChange={(e) => handleInputChange(key, 'key', e.target.value)}
+//                         />
+//                         <input
+//                             type="text"
+//                             placeholder="Value"
+//                             value={productSpecifications[key].value}
+//                             onChange={(e) => handleInputChange(key, 'value', e.target.value)}
+//                         />
+//                         <button onClick={() => handleDeleteField(key)}>Удалить поле</button>
+//                     </div>
+//                 ))}
+//                 <button onClick={handleAddField}>Добавить поле</button>
+//
+//                 <h4>Image</h4>
+//                 <div className="image-upload">
+//                     <input type="file" onChange={handleImageChange} />
+//                     {previewImage && (
+//                         <div className="image-preview">
+//                             <img src={previewImage} alt="Preview" />
+//                             <button onClick={handleRemoveImage}>&times;</button>
+//                         </div>
+//                     )}
+//                     {!previewImage && <p>Файл не выбран</p>}
+//                 </div>
+//
+//                 <button onClick={handleAddProduct}>Add/Edit Product</button>
+//             </div>
+//
+//             <div className="product-list">
+//                 <h3>Product List</h3>
+//                 <ul>
+//                     {products.map((product) => (
+//                         <li key={product._id}>
+//                             {product.name} - {product.price}
+//                             <button onClick={() => handleEditProduct(product._id)}>Редактировать</button>
+//                             <button onClick={() => handleDeleteProduct(product._id)}>Удалить</button>
+//                         </li>
+//                     ))}
+//                 </ul>
+//             </div>
+//         </div>
+//     );
+// };
+//
+// export default AdminPanel;
+
+
+
+
+
 
 // components/AdminPanel/AdminPanel.js
 import React, { useState, useEffect } from 'react';
@@ -1097,14 +1670,10 @@ const AdminPanel = () => {
     const [productDescription, setProductDescription] = useState('');
     const [productType, setProductType] = useState('');
     const [productPrice, setProductPrice] = useState('');
-    const [productSpecifications, setProductSpecifications] = useState([
-        {
-            key: '',
-            value: ''
-        }
-    ]);
+    const [productSpecifications, setProductSpecifications] = useState([]);
     const [productImage, setProductImage] = useState(null);
     const [previewImage, setPreviewImage] = useState(null);
+    const [editingProduct, setEditingProduct] = useState(null);
 
     const [products, setProducts] = useState([]);
 
@@ -1134,24 +1703,34 @@ const AdminPanel = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:3001/api/products', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
+            if (editingProduct) {
+                // Редактирование товара
+                await axios.put(`http://localhost:3001/api/products/${editingProduct._id}`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+            } else {
+                // Добавление нового товара
+                const response = await axios.post('http://localhost:3001/api/products', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+                setProducts([...products, response.data]);
+            }
 
-            setProducts([...products, response.data]);
-
-            // Очищаем поля после добавления товара
+            // Очищаем поля после добавления/редактирования товара
             setProductName('');
             setProductDescription('');
             setProductType('');
             setProductPrice('');
-            setProductSpecifications([{ key: '', value: '' }]);
+            setProductSpecifications([]);
             setProductImage(null);
             setPreviewImage(null);
+            setEditingProduct(null);
         } catch (error) {
-            console.error('Error adding product:', error);
+            console.error('Error adding/editing product:', error);
         }
     };
 
@@ -1172,8 +1751,24 @@ const AdminPanel = () => {
     };
 
     const handleEditProduct = (productId) => {
-        // Обработка редактирования товара
-        console.log('Edit product:', productId);
+        const productToEdit = products.find((product) => product._id === productId);
+        if (productToEdit) {
+            setEditingProduct(productToEdit);
+            setProductName(productToEdit.name || '');
+            setProductDescription(productToEdit.description || '');
+            setProductType(productToEdit.type || '');
+            setProductPrice(productToEdit.price || '');
+
+            // Преобразовываем объект характеристик в массив
+            const specsArray = Object.entries(productToEdit.specifications || {}).map(([key, value]) => ({
+                key,
+                value,
+            }));
+            setProductSpecifications(specsArray);
+
+            setProductImage(null);
+            setPreviewImage(productToEdit.image || null);
+        }
     };
 
     const handleDeleteProduct = async (productId) => {
@@ -1207,7 +1802,7 @@ const AdminPanel = () => {
         <div className="admin-panel">
             <h2>Админ панель</h2>
             <div className="add-product">
-                <h3>Add Product</h3>
+                <h3>{editingProduct ? 'Edit Product' : 'Add Product'}</h3>
                 <input type="text" placeholder="Name" value={productName} onChange={(e) => setProductName(e.target.value)} />
                 <input type="text" placeholder="Description" value={productDescription} onChange={(e) => setProductDescription(e.target.value)} />
                 <input type="text" placeholder="Type" value={productType} onChange={(e) => setProductType(e.target.value)} />
@@ -1245,7 +1840,7 @@ const AdminPanel = () => {
                     {!previewImage && <p>Файл не выбран</p>}
                 </div>
 
-                <button onClick={handleAddProduct}>Add Product</button>
+                <button onClick={handleAddProduct}>{editingProduct ? 'Edit Product' : 'Add Product'}</button>
             </div>
 
             <div className="product-list">
@@ -1265,6 +1860,15 @@ const AdminPanel = () => {
 };
 
 export default AdminPanel;
+
+
+
+
+
+
+
+
+
 
 
 
